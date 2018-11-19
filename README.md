@@ -16,7 +16,7 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
 * Cache is available: Returns literally anything for any given request (95% return)
 * Cache is reliable: Returns proper values/errors for any given request (95% return)   
 * Throughput: Maximum rate of successful send requests (Client -> Server)
-  > Maximum rate of successful received responses (Server -> Client) 
+  *Maximum rate of successful received responses (Server -> Client) 
 
 
 ### 4. List parameters: system and workload.
