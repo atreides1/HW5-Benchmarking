@@ -27,19 +27,22 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
   * Maximum rate of successful received responses (Server -> Client) 
   > Throughput should be testing cache capaity rather than the network/client host ##IS THIS CORRECT? 
 
-
+> If the metrics you're measuring vary by the problem size, then you're fine with a static workload. If you're measuring things like data rate, you'd need a dynamic process. 
 ### 4. List parameters: system and workload.
-* Size of stored value >Should take care of type
+* Size of stored value
+ >Should take care of type, correct? 
 * Amount of values we're trying to store/access
 * Type of requests
-* Eviction Misses vs other miss types (not stored/deleted) on example workload? 
-
+* Eviction Misses vs other miss types (not stored/deleted) on example workload
+ > Not sure if this is considered testing performance or not.
+* Request rate
 
 ### 5. Select factors: for those parameters that will be varied.
 
 
 ### 6. Select evaluation technique: measurement, simulation, and/or analysis.
-
+Measurment using system clock on simulated worklod? 
+ > Which kind of evaluation technique would this be? Probably a simulation, but we also have no way of testing it with an actual workload since this is a homework assignment?? 
 
 ### 7. Select workload: a list of service requests to the system.
 
