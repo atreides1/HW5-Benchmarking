@@ -29,6 +29,10 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
 
 
 ### 4. List parameters: system and workload.
+* Size of stored value >Should take care of type
+* Amount of values we're trying to store/access
+* Type of requests
+* Eviction Misses vs other miss types (not stored/deleted) on example workload? 
 
 
 ### 5. Select factors: for those parameters that will be varied.
