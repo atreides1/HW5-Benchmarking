@@ -6,11 +6,19 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
 ### 1. State the goals and define the system boundaries.
 * Cache capable of handling workloads modeled from expected requests in ETC cache.
 
+### 2. List services and outcomes. 
+#### Services:
+1. Store and update key/value pairs
+2. Delete key/values
+3. Return values across network to client
+4. Terminate server process with /shutdown
+5. Return HEAD upon request to provide header information 
 
-
-
-### 2. List services and outcomes.
-
+#### Outcomes:
+1. Using non-implemented functions (per cache.hh API and project desc for hw 4) should yield 404 error
+2. Return corresponding 200 code for successful http requests 
+3. JSON tuples expected to be returned to client
+4. Head expected to return date, formatting of accepted content, http version
 
 ### 3. Select metrics: criteria to compare performance.
 * Cache is available: Returns literally anything for any given request (95% return)
