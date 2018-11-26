@@ -23,9 +23,7 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
 ### 3. Select metrics: criteria to compare performance.
 * Cache is available: Returns literally anything for any given request (95% return)
 * Cache is reliable: Returns proper values/errors for any given request (95% return)   
-* Throughput: Maximum rate of successful send requests (Client -> Server)
-  * Maximum rate of successful received responses (Server -> Client) 
-  > Throughput should be testing cache capaity rather than the network/client host ##IS THIS CORRECT? 
+* Throughput: Maximum rate of successful sent and received responses (Client->Server->Client)
 
 > If the metrics you're measuring vary by the problem size, then you're fine with a static workload. If you're measuring things like data rate, you'd need a dynamic process. 
 ### 4. List parameters: system and workload.
@@ -36,6 +34,8 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
 * Eviction Misses vs other miss types (not stored/deleted) on example workload
  > Not sure if this is considered testing performance or not.
 * Request rate
+
+Parameters; performance of cold versus warm cache
 
 ### 5. Select factors: for those parameters that will be varied.
 
