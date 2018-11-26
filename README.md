@@ -32,7 +32,6 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
 * Amount of values we're trying to store/access
 * Type of requests
 * Eviction Misses vs other miss types (not stored/deleted) on example workload
- > Not sure if this is considered testing performance or not.
 * Request rate
 * Cold versus warm cache
 Parameters; performance of cold versus warm cache
