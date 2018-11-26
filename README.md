@@ -34,11 +34,12 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
 * Eviction Misses vs other miss types (not stored/deleted) on example workload
  > Not sure if this is considered testing performance or not.
 * Request rate
-
+* Cold versus warm cache
 Parameters; performance of cold versus warm cache
 
 ### 5. Select factors: for those parameters that will be varied.
-
+* Cold vs warm cache get/set request time
+* Amount of requests send and received in given time (Client->Server->Client) [Request rate]
 
 ### 6. Select evaluation technique: measurement, simulation, and/or analysis.
 Measurment using system clock on simulated worklod? 
