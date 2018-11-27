@@ -5,7 +5,7 @@ Sierra and I's design and implementation for benchmarking our cache. CSCI 389
 
 ### 1. State the goals and define the system boundaries.
 * Cache capable of handling workloads modeled from expected requests in ETC cache.
-
+>2 q's goals and system -- Goal for us in a sentence. SYstem and boundaries is more important - what are we measuring and what aren't we measuring . System is server and hardware its running on. The server is the system- Client doesn't really matter
 ### 2. List services and outcomes. 
 #### Services:
 1. Store and update key/value pairs
