@@ -7,6 +7,9 @@
 using namespace std;
 using namespace std::chrono;
 
+//do we want to measure in nanoseconds?
+const NSECS_IN_SEC = 1000000000;
+
 void warmup_cache() 
 {
  
@@ -15,7 +18,7 @@ void warmup_cache()
 void run_benchmark()
 {
  //we need to time requests
- struct timespec t0, t1; //why is t0 like this??
+ struct timespec t0, t1; 
  
   //warm up cache
  warmup_cache();
