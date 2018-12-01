@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
-#include <cstring>
-#include <stdlib.h> //might need this
-#include <chrono> //do we need time.h?
-#include <map>
-#include <vector>
+#include <cstring> //for converting to const char
+#include <stdlib.h>
+#include <chrono>
+#include <thread> // for nanosleep
+#include <map> //for storing key/val pairs
+#include <vector> //for storing keys
 #include <iterator>
 #include "cache.h"
 
@@ -14,7 +15,7 @@ using namespace std::chrono;
 const uint32_t NSECS_IN_SEC = 1000000000;
 const uint32_t BYTES_IN_KEY = 8;
 const uint32_t BYTES_IN_VAL = 16;
-const uint32_t SIX_MB = 6000000;
+const uint32_t SIX_MB = 10;
 uint32_t size = 16;
 
 const char alphabet [] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -59,6 +60,11 @@ int run_benchmark()
 {
     //we need to time requests
     struct timespec t0, t1, t2, t3, t4, t5; //t0,1 are set timings, t2,3 are get, t4,5 are delete
+
+    //for nanosleep
+    //deadline.tv_sec = 0;
+    //deadline.tv_nsec = 1000;
+
     //warm up cache
     warmup_cache();
     //loop through certain number of times, # of set requests, # of get requests
@@ -88,12 +94,15 @@ int run_benchmark()
         {
             int randomIndex = rand() % keys.size();
             key_type key = keys[randomIndex];
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             //begin get timing
             clock_gettime(CLOCK_MONOTONIC_RAW, &t2);
             cache_get(test_cache, key, &size);
             //end get timing
             clock_gettime(CLOCK_MONOTONIC_RAW, &t3);
             get_total_time += (NSECS_IN_SEC * (t3.tv_sec - t2.tv_sec) + (t3.tv_nsec - t2.tv_nsec));
+            //clock_nanosleep(CLOCK_REALTIME, 0, &deadline, NULL);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
     }
 
