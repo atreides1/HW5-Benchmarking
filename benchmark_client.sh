@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "Start up the client"
+echo "Start the benchmark"
 
-./client 
+./benchmark
