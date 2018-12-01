@@ -18,7 +18,7 @@ struct cache_obj {
     const char* ipAddress;
 };
 
-uint16_t PORTNUM = 33052;
+uint16_t PORTNUM = 18080;
 const char* IPADDRESS = "127.0.0.1";
 
 char* makeHttpRequest(const char* method, const char* uriBase, const char* key, val_type value, index_type valLength, index_type* overallRequestLength) {
@@ -56,7 +56,7 @@ char* makeHttpRequest(const char* method, const char* uriBase, const char* key, 
 int charsBeforeNewline(char* cStr, int cStrLength) {
     for (int i = 0; i < cStrLength; i++) {
         if (cStr[i] == '\n') {
-            return i; 
+            return i;
         }
     }
     return cStrLength;
@@ -137,7 +137,7 @@ socketType start_socket(int commType, uint16_t portNum, const char* ipAddress) {
     return newSocket;
 }
 
-cache_type create_cache(index_type maxmem, hash_func hasher) {
+cache_type create_cache(index_type maxmem) {
     // Ignore maxmem and hasher; the server API doesn't allow them to work any more
 
     cache_obj* cacheStruct = new cache_obj;

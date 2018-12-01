@@ -35,7 +35,7 @@ typedef long int evictor_type;
 // If hasher is NULL, use some kind of default (unspecified) has function.
 // If evictor is NULL, use some kind of default (unspecified) eviction policy.
 // Otherwise, use the (unspecified) evictor data structure to choose item to evict.
-cache_type create_cache(index_type maxmem, evictor_type evictor, hash_func hasher);
+cache_type create_cache(index_type maxmem);
 
 // Add a <key, value> pair to the cache.
 // If key already exists, it will overwrite the old value.
