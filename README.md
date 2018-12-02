@@ -67,7 +67,7 @@ We will do this for each of the request types, then measure the total time for a
 
 We would return a value to json_tuple in the case of evaluating the reliability of the cache, since we could then verify that our returned values were as expected, outside of the timing loop. 
 
-#### Example snippit of benchmarking code.
+#### Example snippet of benchmarking code.
 ```cpp
  for (uint32_t i = 0; i < SIX_MB; i++)
     {
