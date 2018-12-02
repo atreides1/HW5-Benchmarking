@@ -41,7 +41,11 @@ We do not intend to measure the performance on just the server side, but will in
 * Cold (empty) versus warm cache
 
 #### System parameters:
-
+* Server implementation used to test
+* Machine hosting server
+   * VM or desktop computers running ubuntu in computer labs
+   * Processes running on server machine 
+   * Memory of server machine 
 ### 5. Select factors: for those parameters that will be varied.
 * Cold vs warm cache GET/SET request time
 * Time between client requests / requests per second that allow for mean response below 1 millisecond.
