@@ -1,12 +1,10 @@
-CPP = g++-7
-CPFLAGS = -Wall - Wextra -pedantic -g
+CXX = g++-7
+CXXFLAGS = -Wall - Wextra -pedantic -g
 IDIR =..crow/include
 
-server:
-       $(CPP) -I $(IDIR) CPFLAGS cache.cc server.cc -o server -pthread -lboost_system;
+server: $(CXX) -I $(IDIR) $(CXXFLAGS) cache.cc server.cc -o server -pthread -lboost_system;
        
-benchmark:
-       $(CPP) client.cc cache.h benchmark.cc -o benchmark;
+benchmark: $(CXX) $(CXXFLAGS) client.cc cache.h benchmark.cc -o benchmark;
 
        
        
