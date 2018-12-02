@@ -69,9 +69,6 @@ We would return a value to json_tuple in the case of evaluating the reliability 
 
 #### Example snippit of benchmarking code.
 ```cpp
-...
-...
-...
  for (uint32_t i = 0; i < SIX_MB; i++)
     {
         //access random key/val pair
@@ -87,9 +84,6 @@ We would return a value to json_tuple in the case of evaluating the reliability 
         std::this_thread::sleep_for(std::chrono::milliseconds(1000/REQUESTS_PER_SEC)); 
         //how long to wait before next request
     }
-...
-...
-...
 ```
 
 ### 9. Analyze and interpret data.
