@@ -12,8 +12,7 @@ We do not intend to measure the performance on just the server side, but will in
 #### Services:
 1. Store and update key/value pairs
 2. Delete key/values
-3. Return values across network to client
-  * Return codes which tell client of successful or unsuccessful actions
+3. Return values across network to client and return http codes which tell client of successful or unsuccessful actions
 4. Terminate server process with /shutdown
 5. Return HEAD upon request to provide header information 
 6. If evictor still enabled - evict largest values from cache until enough space exists to store desired key/value
@@ -75,13 +74,14 @@ We would return a value to json_tuple in the case of evaluating the reliability 
         int randomIndex = rand() % keys.size();
         key_type key = keys[randomIndex]; //use keys to get a random key for key_val
         const void * val = key_val[keys[randomIndex]];
+        
         clock_gettime(CLOCK_MONOTONIC_RAW, &t0); //begin time for set
-        //1 time for set, 6000000 iterations
         string::json_tuple = cache_set(test_cache, key, val, BYTES_IN_VAL); //end set timing
-
         clock_gettime(CLOCK_MONOTONIC_RAW, &t1);
+        
         set_total_time += (NSECS_IN_SEC * (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec));
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000/REQUESTS_PER_SEC)); //how long to wat before next request
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000/REQUESTS_PER_SEC)); 
+        //how long to wait before next request
     }
 ...
 ...
