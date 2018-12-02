@@ -40,7 +40,7 @@ We do not intend to measure the performance on just the server side, but will in
 * Request rate
 * Cold (empty) versus warm cache
 
-#### System parameters:
+#### System Parameters:
 * Server implementation used to test
 * Machine hosting server
    * VM or desktop computers running ubuntu in computer labs
