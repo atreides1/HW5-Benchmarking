@@ -12,7 +12,9 @@
 using namespace std;
 using namespace std::chrono;
 
-const uint32_t NSECS_IN_SEC = 1000000000;
+//const uint32_t NSECS_IN_SEC = 1000000000;
+const uint32_t NSECS_IN_MSEC = 1000000;
+const uint32_t MSECS_IN_SEC = 1000;
 const uint32_t BYTES_IN_KEY = 8;
 const uint32_t BYTES_IN_VAL = 2;
 const uint32_t SIX_MB = 10;
@@ -87,7 +89,7 @@ void run_benchmark()
         cache_set(test_cache, key, val, BYTES_IN_VAL);
          //end set timing
         clock_gettime(CLOCK_MONOTONIC_RAW, &t1);
-        set_total_time += (NSECS_IN_SEC * (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec));
+        set_total_time += (MSECS_IN_SEC * (t1.tv_sec - t0.tv_sec) + ((t1.tv_nsec - t0.tv_nsec)/NSECS_IN_MSEC));
         std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
     }
 
@@ -105,7 +107,7 @@ void run_benchmark()
             cache_get(test_cache, key, &size);
             //end get timing
             clock_gettime(CLOCK_MONOTONIC_RAW, &t3);
-            get_total_time += (NSECS_IN_SEC * (t3.tv_sec - t2.tv_sec) + (t3.tv_nsec - t2.tv_nsec));
+            get_total_time += (MSECS_IN_SEC * (t3.tv_sec - t2.tv_sec) + ((t3.tv_nsec - t2.tv_nsec)/NSECS_IN_MSEC));
             std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
 
         }
@@ -126,7 +128,7 @@ void run_benchmark()
             //end delete timing
             clock_gettime(CLOCK_MONOTONIC_RAW, &t5);
             std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
-            delete_total_time += (NSECS_IN_SEC * (t5.tv_sec - t4.tv_sec) + (t5.tv_nsec - t4.tv_nsec));
+            delete_total_time += (MSECS_IN_SEC * (t5.tv_sec - t4.tv_sec) + ((t5.tv_nsec - t4.tv_nsec)/NSECS_IN_MSEC));
 
         }
     }
