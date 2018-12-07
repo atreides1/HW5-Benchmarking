@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
                     //convert val (void *) to char * then to string
                     char *char_val = (char *) (val);
                     std::string str_val(char_val);
-                    std::cout << str_val;
+                    //std::cout << str_val;
                     json::wvalue x;
                     x["value"] = str_val;
                     x["key"] = k;
