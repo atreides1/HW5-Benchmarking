@@ -14,9 +14,9 @@ using namespace std::chrono;
 
 const uint32_t NSECS_IN_SEC = 1000000000;
 const uint32_t BYTES_IN_KEY = 8;
-const uint32_t BYTES_IN_VAL = 16;
+const uint32_t BYTES_IN_VAL = 2;
 const uint32_t SIX_MB = 10;
-uint32_t size = 16;
+uint32_t size = 2;
 
 const char alphabet [] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 cache_type test_cache = create_cache(2048);

@@ -108,16 +108,17 @@ char* readMessage(char* sourceBuffer, int sourceBufferLength) {
 }
 
 char* parseMessageForGet(char* message, index_type* valSize) {
-    uint32_t keySize = *reinterpret_cast<uint*>(message);
-    uint32_t valIndex = keySize + 4; // +4 for the initial 4 bytes representing key size
-    *valSize = *reinterpret_cast<uint*>(&message[valIndex]);
-    valIndex += 4; //+4 for reading val size
-
-    char* parsedMessage = new char[*valSize];
-    for (uint i = 0; i < *valSize; i++) {
-        parsedMessage[i] = message[i + valIndex];
-    }
-    return parsedMessage;
+    // uint32_t keySize = *reinterpret_cast<uint*>(message);
+    // // uint32_t valIndex = keySize + 4; // +4 for the initial 4 bytes representing key size
+    // *valSize = *reinterpret_cast<uint*>(&message[valIndex]);
+    // valIndex += 4; //+4 for reading val size
+    std::cout << message;
+//Typical message: {\key\:\hhhhhhhh\,\value\:\ss\},
+    // char* parsedMessage = new char[*valSize];
+    // for (uint i = 0; i < *valSize; i++) {
+    //     parsedMessage[i] = message[i + valIndex];
+    // }
+    return message;
 }
 
 socketType start_socket(int commType, uint16_t portNum, const char* ipAddress) {

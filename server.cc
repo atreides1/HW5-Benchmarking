@@ -14,13 +14,13 @@ int main(int argc, char *argv[])
     if (argc != 1)
     {
 
-	    maxmem = std::atoi(argv[1]);
-	    portnum = std::atoi(argv[2]);
+        maxmem = std::atoi(argv[1]);
+        portnum = std::atoi(argv[2]);
     }
     else
     {
-	    maxmem = 1024;
-	    portnum = 18080;
+        maxmem = 1024;
+        portnum = 18080;
     }
     //creating the server and cache
     SimpleApp app;
@@ -43,31 +43,32 @@ int main(int argc, char *argv[])
         ([&](const request& req, std::string k) {
 
 
-	         if (req.method == "GET"_method)
+            if (req.method == "GET"_method)
             {
 
-	   	         //Returns JSON tuple {key: k, value: v} or error if key isn't in cache
+                //Returns JSON tuple {key: k, value: v} or error if key isn't in cache
                 uint32_t size = 1;
-		            if (c.get(k, size) == NULL)
+                if (c.get(k, size) == NULL)
                 {
-                  return response(500, "Key not in cache.");
+                    return response(500, "Key not in cache.");
                 } else
-		{
-                  auto val = c.get(k, size);
-                  //convert val (void *) to char * then to string
-                  char *char_val = (char *) (val);
-		  std::string str_val(char_val);
-		  json::wvalue x;
-                  x["value"] = str_val;
-                  x["key"] = k;
-                  return response(200, x);
+                {
+                    auto val = c.get(k, size);
+                    //convert val (void *) to char * then to string
+                    char *char_val = (char *) (val);
+                    std::string str_val(char_val);
+                    std::cout << str_val;
+                    json::wvalue x;
+                    x["value"] = str_val;
+                    x["key"] = k;
+                    return response(200, x);
                 }
             }
             else if (req.method == "DELETE"_method)
             {
                 //deletes key + val from cache and returns message
-	    	        c.del(k);
-	    	        return response(200, "Successfully deleted key.");
+                c.del(k);
+                return response(200, "Successfully deleted key.");
             }
             else if (req.method == "HEAD"_method)
             {
@@ -79,7 +80,7 @@ int main(int argc, char *argv[])
                 header["Content-Type"] = "application/json";
                 header["Date"] = current_date; //Format: "Tue, 13 Nov 2018 08:12:31 GMT";
                 header["HTTP Version"] = "HTTP/2";
-		            return response(200, header);
+                return response(200, header);
             }
             else
             {
@@ -111,24 +112,24 @@ int main(int argc, char *argv[])
         ([&](const request& req, std::string k, std::string val) {
 
 
-	   if (req.method == "PUT"_method)
-      {
+        if (req.method == "PUT"_method)
+        {
 
-	      uint32_t size = val.size();
+          uint32_t size = val.size();
         //converting the string val to a void pointer
         const void * val_pointer = val.c_str();
-	      c.set(k, val_pointer, size);
+          c.set(k, val_pointer, size);
         keys.push_back(k);
-	    }
-	   return response(200, "Successfully inserted/updated key and value.");
-	});
+        }
+        return response(200, "Successfully inserted/updated key and value.");
+    });
 
 //POST /shutdown: Upon receiving this message, the server stops accepting requests
     CROW_ROUTE(app, "/shutdown")
         .methods("POST"_method)
         ([&](const request& req) {
-          if (req.method == "POST"_method)
-          {
+        if (req.method == "POST"_method)
+        {
             //clear memory from cache
             for (auto i = keys.begin(); i != keys.end(); i++)
             {
@@ -138,10 +139,10 @@ int main(int argc, char *argv[])
             app.stop();
             return response(200, "Shutting down...");
 
-          } else {
+        } else {
 
             return response(404);
-          }
+        }
         });
 
     app.port(portnum).run();
