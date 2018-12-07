@@ -22,7 +22,8 @@ uint16_t PORTNUM = 18080;
 const char* IPADDRESS = "127.0.0.1";
 
 uint32_t total_success = 0;
-
+uint32_t total_requests = 0;
+uint32_t request_500_error= 0;
 char* makeHttpRequest(const char* method, const char* uriBase, const char* key, val_type value, index_type valLength, index_type* overallRequestLength) {
     uint32_t beforeKeyLength = strlen(method) + strlen(uriBase) + 2; //Add 2 for the " /" between the method and the URI
     uint32_t keyLength = 0;
@@ -51,7 +52,8 @@ char* makeHttpRequest(const char* method, const char* uriBase, const char* key, 
     }
     request[*overallRequestLength - 1] = 0;
     assert(requestFillSuccess > 0 && "Failed to stitch together HTTP request string.");
-
+    
+    total_requests += 1;
     return request;
 }
 
@@ -82,9 +84,12 @@ int handleStatusCode(char* sourceBuffer, int sourceBufferLength) {
     uint32_t statusCodeIndex = getStatusCodeIndex(sourceBuffer, sourceBufferLength);
     if (sourceBuffer[statusCodeIndex] == '2') {
         success = 0;
-	total_success += 1;
+    	total_success +=1; 
     }
-
+    if (sourceBuffer[statusCodeIndex] == '5')
+    {
+	request_500_error +=1;
+    }
     return success;
 }
 
@@ -244,7 +249,8 @@ index_type cache_space_used(cache_type cache){
 
 void destroy_cache(cache_type cache) {
     socketType destroySocket = start_socket(SOCK_STREAM, cache->portNum, cache->ipAddress);
-    std::cout << "Number of successful (200) requests: " <<  total_success;
+    std::cout << "Number of successful (200) requests: " <<  total_success << "/" << total_requests <<"\n";
+    std::cout << "500 errors: " << request_500_error << "\n";
     index_type destroyRequestSize = 0;
     char* destroyRequest = makeHttpRequest("POST", "shutdown", NULL, NULL, 0, &destroyRequestSize);
     int sendSuccess = send(destroySocket, destroyRequest, destroyRequestSize, 0);
