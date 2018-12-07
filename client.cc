@@ -20,7 +20,7 @@ struct cache_obj {
 
 uint16_t PORTNUM = 18080;
 const char* IPADDRESS = "127.0.0.1";
-int KEY_SIZE = 4;
+const int KEY_SIZE = 4;
 
 char* makeHttpRequest(const char* method, const char* uriBase, const char* key, val_type value, index_type valLength, index_type* overallRequestLength) {
     uint32_t beforeKeyLength = strlen(method) + strlen(uriBase) + 2; //Add 2 for the " /" between the method and the URI
@@ -109,15 +109,15 @@ char* readMessage(char* sourceBuffer, int sourceBufferLength) {
 }
 
 char* parseMessageForGet(char* message, index_type* valSize) {
-    char * parsedMessage;
-    int adjust = 8 + KEY_SIZE;	
-    for (uint i = 0; i < 2; i++) 
-    {
-        parsedMessage[i] = message[i + adjust];
-    }
+    //char * parsedMessage;
+    //int adjust = 8 + KEY_SIZE;	
+    //for (uint i = 0; i < 2; i++) 
+    //{
+    //    parsedMessage[i] = message[i + adjust];
+    //}
 
-    std::cout << parsedMessage;
-    return parsedMessage;
+    //std::cout << parsedMessage;
+    return message;
 }
 
 socketType start_socket(int commType, uint16_t portNum, const char* ipAddress) {
@@ -187,7 +187,6 @@ val_type cache_get(cache_type cache, key_type key, index_type *val_size) {
         retrievedVal = static_cast<val_type>(parsedMessage);
         delete[] message;
     }
-
     close(getSocket);
     delete[] getRequest;
     delete[] serverReadBuffer;
