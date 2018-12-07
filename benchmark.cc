@@ -149,4 +149,5 @@ int main ()
 {
     create_keys();
     run_benchmark();
+    destroy_cache(test_cache);
 }
