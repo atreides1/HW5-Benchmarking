@@ -20,7 +20,8 @@ struct cache_obj {
 
 uint16_t PORTNUM = 18080;
 const char* IPADDRESS = "127.0.0.1";
-const int KEY_SIZE = 4;
+
+uint32_t total_success = 0;
 
 char* makeHttpRequest(const char* method, const char* uriBase, const char* key, val_type value, index_type valLength, index_type* overallRequestLength) {
     uint32_t beforeKeyLength = strlen(method) + strlen(uriBase) + 2; //Add 2 for the " /" between the method and the URI
@@ -81,6 +82,7 @@ int handleStatusCode(char* sourceBuffer, int sourceBufferLength) {
     uint32_t statusCodeIndex = getStatusCodeIndex(sourceBuffer, sourceBufferLength);
     if (sourceBuffer[statusCodeIndex] == '2') {
         success = 0;
+	total_success += 1;
     }
 
     return success;
@@ -108,7 +110,7 @@ char* readMessage(char* sourceBuffer, int sourceBufferLength) {
     return messageStr;
 }
 
-char* parseMessageForGet(char* message, index_type* valSize) {
+//char* parseMessageForGet(char* message, index_type* valSize) {
     //char * parsedMessage;
     //int adjust = 8 + KEY_SIZE;	
     //for (uint i = 0; i < 2; i++) 
@@ -117,8 +119,8 @@ char* parseMessageForGet(char* message, index_type* valSize) {
     //}
 
     //std::cout << parsedMessage;
-    return message;
-}
+//    return message;
+//}
 
 socketType start_socket(int commType, uint16_t portNum, const char* ipAddress) {
     socketType newSocket = socket(AF_INET, commType, 0);
@@ -159,7 +161,7 @@ int cache_set(cache_type cache, key_type key, val_type val, index_type val_size)
     assert(serverReadLength >= 0 && "Failed to read from server.");
 
     int setSuccess = handleStatusCode(serverReadBuffer, serverReadLength);
-
+    
     close(setSocket);
     delete[] setRequest;
     delete[] serverReadBuffer;
@@ -183,8 +185,8 @@ val_type cache_get(cache_type cache, key_type key, index_type *val_size) {
     val_type retrievedVal = NULL;
     if (getSuccess == 0) {
         char* message = readMessage(serverReadBuffer, serverReadLength);
-        char* parsedMessage = parseMessageForGet(message, val_size);
-        retrievedVal = static_cast<val_type>(parsedMessage);
+  //      char* parsedMessage = parseMessageForGet(message, val_size);
+        retrievedVal = static_cast<val_type>(message);
         delete[] message;
     }
     close(getSocket);
@@ -242,7 +244,7 @@ index_type cache_space_used(cache_type cache){
 
 void destroy_cache(cache_type cache) {
     socketType destroySocket = start_socket(SOCK_STREAM, cache->portNum, cache->ipAddress);
-
+    std::cout << "Number of successful (200) requests: " <<  total_success;
     index_type destroyRequestSize = 0;
     char* destroyRequest = makeHttpRequest("POST", "shutdown", NULL, NULL, 0, &destroyRequestSize);
     int sendSuccess = send(destroySocket, destroyRequest, destroyRequestSize, 0);
