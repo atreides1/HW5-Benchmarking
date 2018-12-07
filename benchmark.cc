@@ -16,6 +16,9 @@ const uint32_t NSECS_IN_SEC = 1000000000;
 const uint32_t BYTES_IN_KEY = 8;
 const uint32_t BYTES_IN_VAL = 2;
 const uint32_t SIX_MB = 10;
+const uint32_t GET_RATIO = 21;
+const uint32_t DELETE_RATIO = 8;
+const uint32_t REQUESTS_PER_SEC = 1000; // Set to 1000 to sleep 1 ms
 uint32_t size = 2;
 
 const char alphabet [] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -56,7 +59,7 @@ void warmup_cache() //"warms" up the cache by inserting different key-value pair
    }
 }
 
-int run_benchmark()
+void run_benchmark()
 {
     //we need to time requests
     struct timespec t0, t1, t2, t3, t4, t5; //t0,1 are set timings, t2,3 are get, t4,5 are delete
@@ -77,6 +80,7 @@ int run_benchmark()
         key_type key = keys[randomIndex]; //use keys to get a random key for key_val
         const void * val = key_val[keys[randomIndex]];
 
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
         //begin time for set
         clock_gettime(CLOCK_MONOTONIC_RAW, &t0);
         //1 time for set, 6000000 iterations
@@ -84,25 +88,26 @@ int run_benchmark()
          //end set timing
         clock_gettime(CLOCK_MONOTONIC_RAW, &t1);
         set_total_time += (NSECS_IN_SEC * (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
     }
 
     double get_total_time;
     for (uint32_t i = 0; i < SIX_MB; i++)
     {
     //21 times for get, 6000000 iterations
-        for (int j = 0; j < 21; j++) // mult 21 by num of trials
+        for (uint32_t j = 0; j < GET_RATIO; j++) // mult 21 by num of trials
         {
             int randomIndex = rand() % keys.size();
             key_type key = keys[randomIndex];
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
             //begin get timing
             clock_gettime(CLOCK_MONOTONIC_RAW, &t2);
             cache_get(test_cache, key, &size);
             //end get timing
             clock_gettime(CLOCK_MONOTONIC_RAW, &t3);
             get_total_time += (NSECS_IN_SEC * (t3.tv_sec - t2.tv_sec) + (t3.tv_nsec - t2.tv_nsec));
-            //clock_nanosleep(CLOCK_REALTIME, 0, &deadline, NULL);
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
+
         }
     }
 
@@ -110,25 +115,36 @@ int run_benchmark()
     for (uint32_t i = 0; i < SIX_MB; i++)
     {
         //8 times for delete, 6000000 iterations
-        for (int k = 0; k < 8; k++)
+        for (uint32_t k = 0; k < DELETE_RATIO; k++)
         {
             int randomIndex = rand() % keys.size();
             key_type key = keys[randomIndex];
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
             //begin delete timing
             clock_gettime(CLOCK_MONOTONIC_RAW, &t4);
             cache_delete(test_cache, key);
             //end delete timing
             clock_gettime(CLOCK_MONOTONIC_RAW, &t5);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000 / REQUESTS_PER_SEC));
             delete_total_time += (NSECS_IN_SEC * (t5.tv_sec - t4.tv_sec) + (t5.tv_nsec - t4.tv_nsec));
+
         }
     }
+    cout << "total time for set requests: " << set_total_time << '\n';
+    cout << "average time per set request: " << set_total_time / SIX_MB << '\n';
+
+    cout << "total time for get requests: " << get_total_time << '\n';
+    cout << "average time per get request: " << get_total_time / (SIX_MB * GET_RATIO) << '\n';
+
+    cout << "total time for delete requests:" << delete_total_time << '\n';
+    cout << "average time per delete request: " << delete_total_time / (SIX_MB * DELETE_RATIO) << '\n';
 
     int32_t total_time = set_total_time + get_total_time + delete_total_time;
-    return total_time;
+    cout << "total time for all requests: " << total_time << '\n';
 }
 
 int main ()
 {
     create_keys();
-    return run_benchmark();
+    run_benchmark();
 }
