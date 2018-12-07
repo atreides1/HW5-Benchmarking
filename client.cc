@@ -20,6 +20,7 @@ struct cache_obj {
 
 uint16_t PORTNUM = 18080;
 const char* IPADDRESS = "127.0.0.1";
+int KEY_SIZE = 4;
 
 char* makeHttpRequest(const char* method, const char* uriBase, const char* key, val_type value, index_type valLength, index_type* overallRequestLength) {
     uint32_t beforeKeyLength = strlen(method) + strlen(uriBase) + 2; //Add 2 for the " /" between the method and the URI
@@ -108,17 +109,15 @@ char* readMessage(char* sourceBuffer, int sourceBufferLength) {
 }
 
 char* parseMessageForGet(char* message, index_type* valSize) {
-    // uint32_t keySize = *reinterpret_cast<uint*>(message);
-    // // uint32_t valIndex = keySize + 4; // +4 for the initial 4 bytes representing key size
-    // *valSize = *reinterpret_cast<uint*>(&message[valIndex]);
-    // valIndex += 4; //+4 for reading val size
-    std::cout << message;
-//Typical message: {\key\:\hhhhhhhh\,\value\:\ss\},
-    // char* parsedMessage = new char[*valSize];
-    // for (uint i = 0; i < *valSize; i++) {
-    //     parsedMessage[i] = message[i + valIndex];
-    // }
-    return message;
+    char * parsedMessage;
+    int adjust = 8 + KEY_SIZE;	
+    for (uint i = 0; i < 2; i++) 
+    {
+        parsedMessage[i] = message[i + adjust];
+    }
+
+    std::cout << parsedMessage;
+    return parsedMessage;
 }
 
 socketType start_socket(int commType, uint16_t portNum, const char* ipAddress) {
