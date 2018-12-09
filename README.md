@@ -2,7 +2,7 @@
 Sierra Schlott and Mercy Bhakta's design and implementation for benchmarking our cache. CSCI 389
 
 #### Important files:
-`benchmark.cc` - Contains our code for measuring cache performance
+`benchmark.cc` - Contains our code for measuring cache performance. (#8 of our performance evaluation) 
 
 `makefile` - contains lines used to compile server and benchmarking code. 
    * `g++-7 -Wall -Wextra -pedantic -g client.cc cache.h benchmark.cc -o benchmark`
@@ -73,6 +73,8 @@ The number of requests we plan to send total will be about 35 million requests. 
 
 
 ### 8. Design experiments to maximize information and minimize effort.
+**Revised**: See `benchmark.cc` for final implementation.
+
 Example for how we measure SET, which performs 6 million sets and measures the time of each individual set, then records the total. 
 We will do this for each of the request types, then measure the total time for all three request types. Then, we'll have an idea of how long our mean response time is. From here, we can include sleep processes which will allow us to restrict the amount of requests at a given time.
 
