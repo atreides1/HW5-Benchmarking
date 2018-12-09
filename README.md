@@ -1,6 +1,17 @@
 # HW5-Benchmarking
 Sierra Schlott and Mercy Bhakta's design and implementation for benchmarking our cache. CSCI 389
 
+#### Important files:
+`benchmark.cc` - Contains our code for measuring cache performance
+
+`makefile` - contains lines used to compile server and benchmarking code. 
+   * `g++-7 -Wall -Wextra -pedantic -g client.cc cache.h benchmark.cc -o benchmark`
+      * `./benchmark` to run
+   * `g++-7 -I ../crow/include -Wall -Wextra cache.cc server.cc -o server -pthread -lboost_system`
+      * `./server` to run with default settings
+ 
+ `README.md` - You are here. Please continue on. :)
+
 # Steps for Performance Evaluation
 
 ### 1. State the goals and define the system boundaries.
