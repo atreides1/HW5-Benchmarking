@@ -6,7 +6,7 @@ Sierra Schlott and Mercy Bhakta's design and implementation for benchmarking our
 ### 1. State the goals and define the system boundaries.
 Our goals are to evaluate reliability to handle requests, the penalty of missed requests, and the throughput for the cache server that we developed for our fourth homework, ["Let's Network".](https://github.com/atreides1/HW2-Hash-it-out "Let's Network") Our benchmarking code will focus on measuring the time requests from Client -> Server -> Client takes under a variety of scenarios. We intend to model our get/set/delete ratios to match the workloads experienced by the ETC cache  in "Workload Analysis of a Large-Scale Key-Value Store" by Berk Atikoglu, Song Jiang, Yuehai Xu, Mike Paleczny, and Eitan Frachtenberg. 
 
-We do not intend to measure the performance on just the server side, but will instead be measuring times from client request until the server responds and the client reads the request. We are limited by the capability of the network, but this is true for all instances of the server being accessed. The server/client interactions will be fastest  when both are hosted on the same machine or with wired connection between the two. This will give us the best case for how our server runs when we can mitigate how the network connection intereferes with performance. Since the system we are trying to evaluate is the server, we will be trying to focus on the entirety of a request rather than just how the client interacts with the server or just how the server interacts with the client. 
+We do not intend to measure the performance on just the server side, but will instead be measuring times from client request until the server responds and the client reads the request. We are limited by the capability of the network, but this is true for all instances of the server being accessed. The server/client interactions will be fastest  when both are hosted on the same machine or with wired connection between the two. This will give us the best case for how our server runs when we can mitigate how the network connection interferes with performance. Since the system we are trying to evaluate is the server, we will be trying to focus on the entirety of a request rather than just how the client interacts with the server or just how the server interacts with the client. 
 
 ### 2. List services and outcomes. 
 #### Services:
@@ -25,7 +25,7 @@ We do not intend to measure the performance on just the server side, but will in
 
 ### 3. Select metrics: criteria to compare performance.
 * Cache is available: Returns literally anything for any given request 
-    * Aiming for 95% availabiity
+    * Aiming for 95% availability
 * Cache is reliable: Returns proper values/errors for any given request
     * Aiming for reliability for 95% or greater cache requests
 * Sustained Throughput: Maximum offered load (in requests per second) at which the mean response time remains under 1 millisecond. 
@@ -56,7 +56,7 @@ We will be using the system clock to measure the response time if requests to th
 
 
 ### 7. Select workload: a list of service requests to the system.
-We will be testing on a cache with 2048 bytes memory, with keys of 8 bytes and values of 16 bytes being stored. Perfomance will be evaluated for a cache under a modeled ETC workload with a ratio of ~[21 GET: 8 DELETE: 1 SET] being sent to the server. We will be measuring performance under varied static request rates on both a "warm" and "cold" cache. 
+We will be testing on a cache with 2048 bytes memory, with keys of 8 bytes and values of 16 bytes being stored. Performance will be evaluated for a cache under a modeled ETC workload with a ratio of ~[21 GET: 8 DELETE: 1 SET] being sent to the server. We will be measuring performance under varied static request rates on both a "warm" and "cold" cache. 
 
 The number of requests we plan to send total will be about 35 million requests. For every delete request, there will be 8 set requests and 21 get requests from the client. 
 
@@ -135,6 +135,7 @@ PUT requests bottlenecked. You do see the point at which our DELETE and GET exce
 
 *Figure 2: Comparing GET, adjusted GET, and cutoff for 1ms response to see cap of sustained throughput* : ![alt text](https://github.com/atreides1/HW5-Benchmarking/blob/master/avg_get1.png "Avg GET")
 
-From our results, we can see that our cache operates with a sustained throughput under about ______ requests per second for a load of around 30,000 individual requests. After this, we see a spike and then the graph levels off at around a 1.8ms response time. Our measurment method likely missed our goal of recording eviction penalities, as we did not have any instances of 500 errors. In this case, it means our reliability was measured at 100% since there were no eviction misses, but this would likely have to be investigated further in the future. If we were to continue our measurements, we might want to get more in-depth with our methods for radomizing the order in which we make a given request. This did not tend to be a problem for our implementation ofo the cache since we didn't have any advanced methods such as prefetching. 
+From our results, we can see that our cache operates with a sustained throughput (<1ms response time) under 512 requests per second for a load of around 30,000 individual requests. After this, we see a spike and then the graph levels off at around a 1.8ms response time. Our measurement method likely missed our goal of recording eviction penalties, as we did not have any instances of 500 errors. In this case, it means our reliability was measured at 100% since there were no eviction misses, but this would likely have to be investigated further in the future. If we were to continue our measurements, we might want to get more in-depth with our methods for randomizing the order in which we make a given request. This did not tend to be a problem for our implementation of the cache since we didn't have any advanced methods such as prefetching. 
 <br/>
-To be a bit more accurate with our recorded values, we could have avoided having the cache count the successful requests, since this became an unnecessary aspect of our recorded performance. In general, we now have a better sense of the performance of our cache under a simulated load, and can see that we have data that is precise since our values are close to each other and follow the general expected "slow increase then level off" trend when graphed. However, we cannot cloaim our results to be entirely accurate due to measuring inconsistencies described above. 
+
+To be a bit more accurate with our recorded values, we could have avoided having the cache count the successful requests, since this became an unnecessary aspect of our recorded performance. In general, we now have a better sense of the performance of our cache under a simulated "ETC"-style load, and can see that we have data that is precise since our values are close to each other and follow the general expected "slow increase then level off" trend when graphed. However, we cannot claim our results to be entirely accurate due to measuring inconsistencies described above.
