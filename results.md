@@ -1,6 +1,6 @@
 *Table 1: Raw Data for performance of cache with varied requests per second, server and client on same machine. 1000 iterations of [1 PUT: 21 GET: 8 DELETE]*
 
-| Requests per second | Average PUT (s) | Average GET (s)| Average DELETE (s)| Success Rate (%)|
+| Requests per second | Average PUT (ms) | Average GET (ms)| Average DELETE (ms)| Success Rate (%)|
 |---------------------|------------|--------------|---------------|-----|
 |128|0.526|0.529476|0.628|100|
 |128|0.436|0.544143|0.384625|100|
@@ -19,9 +19,9 @@
 One thing to note from this data is the limited variation in the PUT times from varied requests per second. 
 If you view our code for `benchmark.cc`, we do sleep between requests for any type of request, however, we did not test until the point that our
 PUT requests bottlenecked. You do see the point at which our DELETE and GET exceed 1ms, so we'll be measuring our throughput based on our GET requests since those are the most common request.
+*Table 2: Average GET + Time between requests (Measured GET + (1/requests per second)) to see actual max throughput* 
 
-
-| Requests per second | Average GET (s)| Adjusted GET (s)|
+| Requests per second | Average GET (ms)| Adjusted GET (ms)|
 |---------------------|----------------|-----------------|
 |128|0.529476|0.5372885|
 |128|0.544143|0.5519555|
