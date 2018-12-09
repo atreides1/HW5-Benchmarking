@@ -12,15 +12,14 @@
 using namespace std;
 using namespace std::chrono;
 
-//const uint32_t NSECS_IN_SEC = 1000000000;
 const uint32_t NSECS_IN_MSEC = 1000000;
 const uint32_t MSECS_IN_SEC = 1000;
 const uint32_t BYTES_IN_KEY = 8;
 const uint32_t BYTES_IN_VAL = 2;
-const uint32_t ITERS = 100;
+const uint32_t ITERS = 1000;
 const uint32_t GET_RATIO = 21;
 const uint32_t DELETE_RATIO = 8;
-const uint32_t REQUESTS_PER_SEC = 10000; // Set to 1000 to sleep 1 ms
+const uint32_t REQUESTS_PER_SEC = 8192;
 uint32_t size = 2;
 
 const char alphabet [] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -151,4 +150,5 @@ int main ()
     create_keys();
     run_benchmark();
     destroy_cache(test_cache);
+    cout << '\n';
 }
