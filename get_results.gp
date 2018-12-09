@@ -1,7 +1,7 @@
-plot "get_results.csv"
-set title "Average time per Get Request"
+plot "get_results.csv" with linespoints title "Time (ms) per GET"
+set title "Average time per GET Request"
 set ylabel "Time (ms)"
 set xlabel "Requests Per Second"
-set title "Mean Time (ns) of n Random Accesses 10 times to Buffer of n Bytes"
+set title "Time (ms) per GET at n Requests per Second"  
 set logscale x 2
 replot
