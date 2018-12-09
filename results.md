@@ -16,10 +16,16 @@
 |4096|0.414|1.8651|1.408|100|
 |4096|0.383|1.83881|1.40925|100|
 
+
+
 One thing to note from this data is the limited variation in the PUT times from varied requests per second. 
 If you view our code for `benchmark.cc`, we do sleep between requests for any type of request, however, we did not test until the point that our
 PUT requests bottlenecked. You do see the point at which our DELETE and GET exceed 1ms, so we'll be measuring our throughput based on our GET requests since those are the most common request.
-*Table 2: Average GET + Time between requests (Measured GET + (1/requests per second)) to see actual max throughput* 
+Inline-style: ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Avg GET")
+<br/>
+
+
+*Table 2: Average GET and Time between requests (Measured GET + (1/requests per second)) to see actual max throughput* 
 
 | Requests per second | Average GET (ms)| Adjusted GET (ms)|
 |---------------------|----------------|-----------------|
@@ -36,3 +42,7 @@ PUT requests bottlenecked. You do see the point at which our DELETE and GET exce
 |2048|1.85862|1.859108281|
 |4096|1.8651|1.865344141|
 |4096|1.83881|1.839054141|
+
+
+
+*Adjusted and average GET at varied request/second intervals for finding sustained throughput* : ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "GET and Adjusted")
