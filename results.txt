@@ -1,0 +1,142 @@
+Requests Per Second: 256
+total time for set requests: 526
+average time per set request: 0.526
+total time for get requests: 11119
+average time per get request: 0.529476
+total time for delete requests:5024
+average time per delete request: 0.628
+total time for all requests: 16669
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 256
+total time for set requests: 436
+average time per set request: 0.436
+total time for get requests: 11427
+average time per get request: 0.544143
+total time for delete requests:3077
+average time per delete request: 0.384625
+total time for all requests: 14940
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 512
+total time for set requests: 318
+average time per set request: 0.318
+total time for get requests: 15575
+average time per get request: 0.741667
+total time for delete requests:3695
+average time per delete request: 0.461875
+total time for all requests: 19588
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 512
+total time for set requests: 305
+average time per set request: 0.305
+total time for get requests: 15307
+average time per get request: 0.728905
+total time for delete requests:3684
+average time per delete request: 0.4605
+total time for all requests: 19296
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 512
+total time for set requests: 340
+average time per set request: 0.34
+total time for get requests: 15456
+average time per get request: 0.736
+total time for delete requests:3411
+average time per delete request: 0.426375
+total time for all requests: 19207
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 1024
+total time for set requests: 404
+average time per set request: 0.404
+total time for get requests: 39559
+average time per get request: 1.88376
+total time for delete requests:10955
+average time per delete request: 1.36938
+total time for all requests: 50918
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 1024
+total time for set requests: 415
+average time per set request: 0.415
+total time for get requests: 38649
+average time per get request: 1.84043
+total time for delete requests:11591
+average time per delete request: 1.44887
+total time for all requests: 50655
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 2048
+total time for set requests: 429
+average time per set request: 0.429
+total time for get requests: 38625
+average time per get request: 1.83929
+total time for delete requests:11605
+average time per delete request: 1.45063
+total time for all requests: 50659
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 2048
+total time for set requests: 423
+average time per set request: 0.423
+total time for get requests: 38786
+average time per get request: 1.84695
+total time for delete requests:11477
+average time per delete request: 1.43463
+total time for all requests: 50686
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 4096
+total time for set requests: 373
+average time per set request: 0.373
+total time for get requests: 38324
+average time per get request: 1.82495
+total time for delete requests:11859
+average time per delete request: 1.48237
+total time for all requests: 50556
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 4096
+total time for set requests: 416
+average time per set request: 0.416
+total time for get requests: 39031
+average time per get request: 1.85862
+total time for delete requests:11204
+average time per delete request: 1.4005
+total time for all requests: 50651
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 8192
+total time for set requests: 414
+average time per set request: 0.414
+total time for get requests: 39167
+average time per get request: 1.8651
+total time for delete requests:11264
+average time per delete request: 1.408
+total time for all requests: 50845
+Number of successful (200) requests: 31000/31000
+500 errors: 0
+
+Requests Per Second: 8192
+total time for set requests: 383
+average time per set request: 0.383
+total time for get requests: 38615
+average time per get request: 1.83881
+total time for delete requests:11274
+average time per delete request: 1.40925
+total time for all requests: 50272
+Number of successful (200) requests: 31000/31000
+500 errors: 0
