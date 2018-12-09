@@ -131,3 +131,10 @@ PUT requests bottlenecked. You do see the point at which our DELETE and GET exce
 
 
 ### 10. Present results
+*Figure 1: Average time of GET versus number of requests per second* : ![alt text](https://github.com/atreides1/HW5-Benchmarking/blob/master/avg_get1.png "Avg GET")
+
+*Figure 2: Comparing GET, adjusted GET, and cutoff for 1ms response to see cap of sustained throughput* : ![alt text](https://github.com/atreides1/HW5-Benchmarking/blob/master/avg_get1.png "Avg GET")
+
+From our results, we can see that our cache operates with a sustained throughput under about ______ requests per second for a load of around 30,000 individual requests. After this, we see a spike and then the graph levels off at around a 1.8ms response time. Our measurment method likely missed our goal of recording eviction penalities, as we did not have any instances of 500 errors. In this case, it means our reliability was measured at 100% since there were no eviction misses, but this would likely have to be investigated further in the future. If we were to continue our measurements, we might want to get more in-depth with our methods for radomizing the order in which we make a given request. This did not tend to be a problem for our implementation ofo the cache since we didn't have any advanced methods such as prefetching. 
+<br/>
+To be a bit more accurate with our recorded values, we could have avoided having the cache count the successful requests, since this became an unnecessary aspect of our recorded performance. In general, we now have a better sense of the performance of our cache under a simulated load, and can see that we have data that is precise since our values are close to each other and follow the general expected "slow increase then level off" trend when graphed. However, we cannot cloaim our results to be entirely accurate due to measuring inconsistencies described above. 
