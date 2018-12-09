@@ -17,10 +17,10 @@ const uint32_t NSECS_IN_MSEC = 1000000;
 const uint32_t MSECS_IN_SEC = 1000;
 const uint32_t BYTES_IN_KEY = 8;
 const uint32_t BYTES_IN_VAL = 2;
-const uint32_t SIX_MB = 10;
+const uint32_t ITERS = 100;
 const uint32_t GET_RATIO = 21;
 const uint32_t DELETE_RATIO = 8;
-const uint32_t REQUESTS_PER_SEC = 1000; // Set to 1000 to sleep 1 ms
+const uint32_t REQUESTS_PER_SEC = 10000; // Set to 1000 to sleep 1 ms
 uint32_t size = 2;
 
 const char alphabet [] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -52,7 +52,7 @@ void create_keys() //stores key + val in map for easy access
 
 void warmup_cache() //"warms" up the cache by inserting different key-value pairs
 {
-   for (uint32_t i = 0; i < SIX_MB; i++)
+   for (uint32_t i = 0; i < ITERS; i++)
    {
         uint32_t randomIndex = rand() % keys.size();
         key_type key = keys[randomIndex];
@@ -75,7 +75,7 @@ void run_benchmark()
     //loop through certain number of times, # of set requests, # of get requests
     //ratios are 21 GET : 1 SET (UPDATE) : 8 DELETE [for modeling ETC workload]
     double set_total_time;
-    for (uint32_t i = 0; i < SIX_MB; i++)
+    for (uint32_t i = 0; i < ITERS; i++)
     {
         //access random key/val pair
         int randomIndex = rand() % keys.size();
@@ -94,7 +94,7 @@ void run_benchmark()
     }
 
     double get_total_time;
-    for (uint32_t i = 0; i < SIX_MB; i++)
+    for (uint32_t i = 0; i < ITERS; i++)
     {
     //21 times for get, 6000000 iterations
         for (uint32_t j = 0; j < GET_RATIO; j++) // mult 21 by num of trials
@@ -114,7 +114,7 @@ void run_benchmark()
     }
 
     double delete_total_time;
-    for (uint32_t i = 0; i < SIX_MB; i++)
+    for (uint32_t i = 0; i < ITERS; i++)
     {
         //8 times for delete, 6000000 iterations
         for (uint32_t k = 0; k < DELETE_RATIO; k++)
@@ -133,13 +133,13 @@ void run_benchmark()
         }
     }
     cout << "total time for set requests: " << set_total_time << '\n';
-    cout << "average time per set request: " << set_total_time / SIX_MB << '\n';
+    cout << "average time per set request: " << set_total_time / ITERS << '\n';
 
     cout << "total time for get requests: " << get_total_time << '\n';
-    cout << "average time per get request: " << get_total_time / (SIX_MB * GET_RATIO) << '\n';
+    cout << "average time per get request: " << get_total_time / (ITERS * GET_RATIO) << '\n';
 
     cout << "total time for delete requests:" << delete_total_time << '\n';
-    cout << "average time per delete request: " << delete_total_time / (SIX_MB * DELETE_RATIO) << '\n';
+    cout << "average time per delete request: " << delete_total_time / (ITERS * DELETE_RATIO) << '\n';
 
     int32_t total_time = set_total_time + get_total_time + delete_total_time;
     cout << "total time for all requests: " << total_time << '\n';
@@ -147,6 +147,7 @@ void run_benchmark()
 
 int main ()
 {
+    cout << "Requests Per Second: " << REQUESTS_PER_SEC << '\n';
     create_keys();
     run_benchmark();
     destroy_cache(test_cache);
